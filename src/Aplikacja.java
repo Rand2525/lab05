@@ -69,6 +69,7 @@ public class Aplikacja {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
+                Most most = new Most(mostLabel);
                 try {
                     parametr=Integer.parseInt(tWatki.getText());
                     if(parametr>10 || parametr<1)
@@ -88,7 +89,7 @@ public class Aplikacja {
                         }
                         ThreadGroup pojazdGrupa = new ThreadGroup("watki pojazdow");
                         for (int i = 1; i <= iloscPojazdow; i++) {
-                            Pojazd pojazd = new Pojazd(pojazdGrupa,i,mostLabel,polozeniePolnoc,polozeniePoludnie);
+                            Pojazd pojazd = new Pojazd(pojazdGrupa,i,most,polozeniePolnoc,polozeniePoludnie);
                             listaPojazdow.add(pojazd);
 
                         }
@@ -115,6 +116,7 @@ public class Aplikacja {
                         }
                     }
 
+                    //Uruchomienie watkow
                     for (Pojazd pojazd : listaPojazdow)
                         pojazd.start();
 //                    for(Barka barka : listaBarek)
