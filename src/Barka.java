@@ -22,13 +22,13 @@ public class Barka extends Thread {
 
         while(!koniec) {
             if (!stan.equals("B")) {
-                szansa = (int) (Math.random() * 10);
+                szansa = (int) (Math.random() * 20);
                 try {
-                    sleep(2000);
+                    sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (szansa == 9) {
+                if (szansa == 19) {
                     etykieta = "B" + idEtykiety;
                     stan = "B";
                     most.dodajOczekujacaBarke();
@@ -39,9 +39,8 @@ public class Barka extends Thread {
                         {
                             if(pozycja.getText().toUpperCase().equals(etykieta)) {
                                 pozycja.setText(etykieta);
-                                System.out.println("Zmieniono bhjsbdv");
                                 try {
-                                    sleep(2000);
+                                    sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -55,9 +54,8 @@ public class Barka extends Thread {
                         {
                             if(pozycja.getText().toUpperCase().equals(etykieta)) {
                                 pozycja.setText(etykieta);
-                                System.out.println("Zmieniono");
                                 try {
-                                    sleep(2000);
+                                    sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }

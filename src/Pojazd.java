@@ -19,16 +19,15 @@ public class Pojazd extends Thread {
 
         while(!koniec) {
             if (!stan.equals("P")) {
-                szansa = (int) (Math.random() * 3);
+                szansa = (int) (Math.random() * 2);
                 try {
                     sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (szansa == 2) {
+                if (szansa == 1) {
                     etykieta = "P" + idEtykiety;
                     stan="P";
-//                    status = "oczekujacy";
                     if(polozenie.equals("polnoc"))
                     {
 
@@ -36,9 +35,8 @@ public class Pojazd extends Thread {
                         {
                             if(pozycja.getText().toUpperCase().equals(etykieta)) {
                                 pozycja.setText(etykieta);
-                                System.out.println("Zmieniono");
                                 try {
-                                    sleep(2000);
+                                    sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -52,9 +50,8 @@ public class Pojazd extends Thread {
                         {
                             if(pozycja.getText().toUpperCase().equals(etykieta)) {
                                 pozycja.setText(etykieta);
-                                System.out.println("Zmieniono");
                                 try {
-                                    sleep(2000);
+                                    sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -96,56 +93,4 @@ public class Pojazd extends Thread {
         return etykieta;
     }
 
-//    public synchronized void przejazd() throws InterruptedException {
-//        if(polozenie.equals("polnoc")) {
-//            for (JLabel pozycja : polozeniePolnoc) {
-//                if (pozycja.getText().toUpperCase().equals(etykieta)) {
-//                    pozycja.setText("--");
-//                    break;
-//                }
-//            }
-//            most.setText("<html>[" + etykieta + " ]<br>[ ]<br>[ ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[" + etykieta + "]<br>[ ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[ ]<br>[" + etykieta + " ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[ ]<br>[ ] ");
-//            for (JLabel pozycja : polozeniePoludnie) {
-//                if (pozycja.getText().equals("--")) {
-//                    etykieta = "p" + idEtykiety;
-//                    stan="p";
-//                    pozycja.setText(etykieta);
-//                    break;
-//                }
-//            }
-//            polozenie="poludnie";
-//        }
-//        else
-//        {
-//            for (JLabel pozycja : polozeniePoludnie) {
-//                if (pozycja.getText().toUpperCase().equals(etykieta)) {
-//                    pozycja.setText("--");
-//                    break;
-//                }
-//            }
-//            most.setText("<html>[" + etykieta + " ]<br>[ ]<br>[ ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[ ]<br>[" + etykieta + " ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[" + etykieta + "]<br>[ ] ");
-//            sleep(2000);
-//            most.setText("<html>[ ]<br>[ ]<br>[ ] ");
-//            for (JLabel pozycja : polozeniePolnoc) {
-//                if (pozycja.getText().equals("--")) {
-//                    etykieta = "p" + idEtykiety;
-//                    stan="p";
-//                    pozycja.setText(etykieta);
-//                    break;
-//                }
-//            }
-//            polozenie="polnoc";
-//        }
-//
-//    }
 }
