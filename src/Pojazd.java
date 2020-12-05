@@ -5,7 +5,7 @@ public class Pojazd extends Thread {
 //    private static int liczba = 1;
     private String etykieta;
     private int idEtykiety;
-    private String status = "podroz";
+//    private String status = "podroz";
     private int szansa;
     private boolean koniec;
     private String stan = "p";
@@ -25,11 +25,10 @@ public class Pojazd extends Thread {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//                System.out.println(szansa);
                 if (szansa == 2) {
                     etykieta = "P" + idEtykiety;
                     stan="P";
-                    status = "oczekujacy";
+//                    status = "oczekujacy";
                     if(polozenie.equals("polnoc"))
                     {
 
@@ -47,14 +46,30 @@ public class Pojazd extends Thread {
                             }
                         }
                     }
+                    else
+                    {
+                        for(JLabel pozycja : polozeniePoludnie)
+                        {
+                            if(pozycja.getText().toUpperCase().equals(etykieta)) {
+                                pozycja.setText(etykieta);
+                                System.out.println("Zmieniono");
+                                try {
+                                    sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            }
+                        }
+                    }
+
 
                 }
 
                 }
             else {
-
                 try {
-                    most.przejazd(polozenie,polozeniePolnoc,polozeniePoludnie,etykieta,idEtykiety,stan);
+                    most.przejazd(polozenie,etykieta,idEtykiety,stan);
                     stan="p";
                     if(polozenie.equals("polnoc"))
                         polozenie="poludnie";
@@ -75,7 +90,6 @@ public class Pojazd extends Thread {
         this.polozeniePolnoc=polozeniePolnoc;
         this.polozeniePoludnie=polozeniePoludnie;
         this.pojazdGrupa=pojazdGrupa;
-//        liczba++;
     }
 
     public String getEtykieta() {

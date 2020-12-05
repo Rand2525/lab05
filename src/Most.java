@@ -3,13 +3,22 @@ import javax.swing.*;
 public class Most extends Thread {
 
     private JLabel mostLabel;
+    private JLabel[] polozeniePolnoc;
+    private JLabel[] polozeniePoludnie;
+    private JLabel[] polozenieWschod;
+    private JLabel[] polozenieZachod;
 
-    public Most(JLabel mostLabel)
+
+    public Most(JLabel mostLabel, JLabel[] polozeniePolnoc, JLabel[] polozeniePoludnie, JLabel[] polozenieWschod, JLabel[] polozenieZachod)
     {
         this.mostLabel=mostLabel;
+        this.polozeniePolnoc=polozeniePolnoc;
+        this.polozeniePoludnie=polozeniePoludnie;
+        this.polozenieWschod=polozenieWschod;
+        this.polozenieZachod=polozenieZachod;
     }
 
-    public synchronized void przejazd(String polozenie,JLabel[] polozeniePolnoc,JLabel[] polozeniePoludnie,String etykieta, int idEtykiety, String stan) throws InterruptedException {
+    public synchronized void przejazd(String polozenie,String etykieta, int idEtykiety, String stan) throws InterruptedException {
         if(polozenie.equals("polnoc")) {
             for (JLabel pozycja : polozeniePolnoc) {
                 if (pozycja.getText().toUpperCase().equals(etykieta)) {
@@ -17,11 +26,11 @@ public class Most extends Thread {
                     break;
                 }
             }
-            mostLabel.setText("<html>[" + etykieta + " ]<br>[ ]<br>[ ] ");
+            mostLabel.setText("<html>[" + etykieta + "]<br>[ ]<br>[ ] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[" + etykieta + "]<br>[ ] ");
             sleep(2000);
-            mostLabel.setText("<html>[ ]<br>[ ]<br>[" + etykieta + " ] ");
+            mostLabel.setText("<html>[ ]<br>[ ]<br>[" + etykieta + "] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
             for (JLabel pozycja : polozeniePoludnie) {
@@ -42,11 +51,11 @@ public class Most extends Thread {
                     break;
                 }
             }
-            mostLabel.setText("<html>[ ]<br>[ ]<br>[" + etykieta + " ] ");
+            mostLabel.setText("<html>[ ]<br>[ ]<br>[" + etykieta + "] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[" + etykieta + "]<br>[ ] ");
             sleep(2000);
-            mostLabel.setText("<html>[" + etykieta + " ]<br>[ ]<br>[ ] ");
+            mostLabel.setText("<html>[" + etykieta + "]<br>[ ]<br>[ ] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
             for (JLabel pozycja : polozeniePolnoc) {
@@ -61,5 +70,60 @@ public class Most extends Thread {
             polozenie="polnoc";
         }
 
+    }
+    public synchronized void przeplyn(String polozenie, String etykieta,int idEtykiety,String stan) throws InterruptedException {
+        if(polozenie.equals("wschod"))
+        {
+            for(JLabel pozycja : polozenieWschod)
+            {
+                if(pozycja.getText().toUpperCase().equals(etykieta)){
+                    pozycja.setText("--");
+                    break;
+                }
+            }
+            mostLabel.setText("<html>[ ]<br><br>[ ] ");
+            sleep(2000);
+            mostLabel.setText("<html>[ ]<br>" +"       "+ etykieta + "<br>[ ] ");
+            sleep(2000);
+            mostLabel.setText("<html>[ ]<br>" + etykieta +"<br>[ ] ");
+            sleep(2000);
+            mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
+            for (JLabel pozycja : polozenieZachod) {
+                if (pozycja.getText().equals("--")) {
+                    etykieta = "b" + idEtykiety;
+                    stan="b";
+                    pozycja.setText(etykieta);
+                    break;
+                }
+            }
+            sleep(2000);
+            polozenie="polnoc";
+        }
+        else {
+            for(JLabel pozycja : polozenieZachod)
+            {
+                if(pozycja.getText().toUpperCase().equals(etykieta)){
+                    pozycja.setText("--");
+                    break;
+                }
+            }
+            mostLabel.setText("<html>[ ]<br><br>[ ] ");
+            sleep(2000);
+            mostLabel.setText("<html>[ ]<br>" + etykieta +"<br>[ ] ");
+            sleep(2000);
+            mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
+            for (JLabel pozycja : polozenieWschod) {
+                if (pozycja.getText().equals("--")) {
+                    etykieta = "b" + idEtykiety;
+                    stan="b";
+                    pozycja.setText(etykieta);
+                    break;
+                }
+            }
+            sleep(2000);
+            polozenie="polnoc";
+
+
+        }
     }
 }
