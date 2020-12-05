@@ -31,7 +31,7 @@ public class Barka extends Thread {
                 if (szansa == 9) {
                     etykieta = "B" + idEtykiety;
                     stan = "B";
-
+                    most.dodajOczekujacaBarke();
                     if(polozenie.equals("wschod"))
                     {
 
@@ -68,14 +68,7 @@ public class Barka extends Thread {
                 }
 
                 status = "oczekujacy";
-                Aplikacja.dodajOczekujacaBarke();
-//                if(Aplikacja.getOczekujaceBarki()>=2)
-//                {
-//                    //przejazd
-//                }
-//                else
-//                    notify();
-//                przejazd();
+
             }
             else {
                 try {

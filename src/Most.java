@@ -7,8 +7,13 @@ public class Most extends Thread {
     private JLabel[] polozeniePoludnie;
     private JLabel[] polozenieWschod;
     private JLabel[] polozenieZachod;
+    private int oczekujaceBarki = 0;
 
 
+    public void dodajOczekujacaBarke()
+    {
+        oczekujaceBarki++;
+    }
     public Most(JLabel mostLabel, JLabel[] polozeniePolnoc, JLabel[] polozeniePoludnie, JLabel[] polozenieWschod, JLabel[] polozenieZachod)
     {
         this.mostLabel=mostLabel;
@@ -19,6 +24,8 @@ public class Most extends Thread {
     }
 
     public synchronized void przejazd(String polozenie,String etykieta, int idEtykiety, String stan) throws InterruptedException {
+        while (oczekujaceBarki>=2)
+            wait();
         if(polozenie.equals("polnoc")) {
             for (JLabel pozycja : polozeniePolnoc) {
                 if (pozycja.getText().toUpperCase().equals(etykieta)) {
@@ -72,6 +79,14 @@ public class Most extends Thread {
 
     }
     public synchronized void przeplyn(String polozenie, String etykieta,int idEtykiety,String stan) throws InterruptedException {
+
+
+        while (oczekujaceBarki<2)
+        {
+            wait();
+        }
+        mostLabel.setText("<html>[ ]<br><br>[ ] ");
+        sleep(2000);
         if(polozenie.equals("wschod"))
         {
             for(JLabel pozycja : polozenieWschod)
@@ -81,10 +96,7 @@ public class Most extends Thread {
                     break;
                 }
             }
-            mostLabel.setText("<html>[ ]<br><br>[ ] ");
-            sleep(2000);
-            mostLabel.setText("<html>[ ]<br>" +"       "+ etykieta + "<br>[ ] ");
-            sleep(2000);
+
             mostLabel.setText("<html>[ ]<br>" + etykieta +"<br>[ ] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
@@ -97,7 +109,7 @@ public class Most extends Thread {
                 }
             }
             sleep(2000);
-            polozenie="polnoc";
+            oczekujaceBarki--;
         }
         else {
             for(JLabel pozycja : polozenieZachod)
@@ -107,8 +119,7 @@ public class Most extends Thread {
                     break;
                 }
             }
-            mostLabel.setText("<html>[ ]<br><br>[ ] ");
-            sleep(2000);
+
             mostLabel.setText("<html>[ ]<br>" + etykieta +"<br>[ ] ");
             sleep(2000);
             mostLabel.setText("<html>[ ]<br>[ ]<br>[ ] ");
@@ -122,8 +133,11 @@ public class Most extends Thread {
             }
             sleep(2000);
             polozenie="polnoc";
+            oczekujaceBarki--;
 
 
         }
+        if(oczekujaceBarki==2)
+            notify();
     }
 }

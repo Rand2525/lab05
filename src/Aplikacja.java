@@ -36,24 +36,6 @@ public class Aplikacja {
     private int parametr;
     private int iloscPojazdow;
     private int iloscBarek;
-    private static int oczekujaceBarki;
-    private static int czasOczekiwania;
-    public static int getOczekujaceBarki() {
-        return oczekujaceBarki;
-    }
-
-    public static int getCzasOczekiwania() {
-        return czasOczekiwania;
-    }
-
-    public void setMostLabel(JLabel mostLabel) {
-        this.mostLabel = mostLabel;
-    }
-    public static void dodajOczekujacaBarke()
-    {
-        oczekujaceBarki++;
-    }
-
 
     private List<Pojazd> listaPojazdow = new ArrayList<Pojazd>();
     private List<Barka> listaBarek = new ArrayList<Barka>();
