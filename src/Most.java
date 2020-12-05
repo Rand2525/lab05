@@ -9,6 +9,7 @@ public class Most extends Thread {
     private JLabel[] polozenieZachod;
     private int oczekujaceBarki = 0;
     private int czasOczekiwania = 0;
+    boolean mozliwosc = false;
 
 
     public void dodajOczekujacaBarke()
@@ -25,7 +26,7 @@ public class Most extends Thread {
     }
 
     public synchronized void przejazd(String polozenie,String etykieta, int idEtykiety, String stan) throws InterruptedException {
-        while (oczekujaceBarki>=2 || czasOczekiwania==5)
+        while (oczekujaceBarki>=2 || czasOczekiwania==5 || mozliwosc == true)
             wait();
         if(polozenie.equals("polnoc")) {
             for (JLabel pozycja : polozeniePolnoc) {
@@ -82,13 +83,13 @@ public class Most extends Thread {
                 czasOczekiwania++;
         }
         System.out.println(czasOczekiwania);
-        if(oczekujaceBarki<2 && czasOczekiwania!=4)
+        if(oczekujaceBarki<2 && czasOczekiwania!=4 && mozliwosc==false)
             notify();
     }
     public synchronized void przeplyn(String polozenie, String etykieta,int idEtykiety,String stan) throws InterruptedException {
 
 
-        while (oczekujaceBarki<2 && czasOczekiwania<4)
+        while (oczekujaceBarki<2 && czasOczekiwania<4 && mozliwosc==false)
         {
             wait();
         }
@@ -118,6 +119,10 @@ public class Most extends Thread {
             sleep(500);
             oczekujaceBarki--;
             czasOczekiwania=0;
+            if(oczekujaceBarki!=0)
+                mozliwosc=true;
+            else
+                mozliwosc=false;
         }
         else {
             for(JLabel pozycja : polozenieZachod)
@@ -143,9 +148,13 @@ public class Most extends Thread {
             polozenie="polnoc";
             oczekujaceBarki--;
             czasOczekiwania=0;
+            if(oczekujaceBarki!=0)
+                mozliwosc=true;
+            else
+                mozliwosc=false;
 
         }
-        if(oczekujaceBarki>=2 || czasOczekiwania>=5)
+        if(oczekujaceBarki>=2 || czasOczekiwania>=5 || mozliwosc==true)
             notify();
     }
 }

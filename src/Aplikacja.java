@@ -120,6 +120,26 @@ public class Aplikacja {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 tWatki.setText("");
+                for (Pojazd pojazd : listaPojazdow)
+                    pojazd.stop();
+                for(Barka barka : listaBarek)
+                    barka.stop();
+                for(JLabel etykieta : polozeniePolnoc)
+                {
+                    etykieta.setText("--");
+                }
+                for(JLabel etykieta : polozeniePoludnie)
+                {
+                    etykieta.setText("--");
+                }
+                for(JLabel etykieta : polozenieWschod)
+                {
+                    etykieta.setText("--");
+                }
+                for(JLabel etykieta : polozenieZachod)
+                {
+                    etykieta.setText("--");
+                }
             }
         });
     }

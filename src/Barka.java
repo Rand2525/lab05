@@ -22,13 +22,13 @@ public class Barka extends Thread {
 
         while(!koniec) {
             if (!stan.equals("B")) {
-                szansa = (int) (Math.random() * 20);
+                szansa = (int) (Math.random() * 2);
                 try {
                     sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (szansa == 19) {
+                if (szansa == 1) {
                     etykieta = "B" + idEtykiety;
                     stan = "B";
                     most.dodajOczekujacaBarke();
